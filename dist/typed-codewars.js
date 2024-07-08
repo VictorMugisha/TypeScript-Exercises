@@ -61,9 +61,27 @@ var TypedCodeWars;
         }
         return solutionArray;
     }
-    console.log(range(10));
-    console.log(range(0, 30, 5));
-    console.log(range(0));
-    console.log(range(1, 4, 0));
-    console.log(range(1, 11));
+    // console.log(range(10))
+    // console.log(range(0, 30, 5))
+    // console.log(range(0))
+    // console.log(range(1, 4, 0))
+    // console.log(range(1, 11))
+    // Fibonacci Streaming
+    // You're going to provide a needy programmer a utility method that generates an infinite amount of sequential fibonacci numbers.
+    // to do this return an Iterator<BigInt>  starting with 1
+    // A fibonacci sequence starts with two 1s. Every element afterwards is the sum of the two previous elements. See:
+    // 1, 1, 2, 3, 5, 8, 13, ..., 89, 144, 233, 377, ...
+    function* fibonacciSequence() {
+        let firstVal = 1n;
+        let secondVal = 1n;
+        yield firstVal;
+        yield secondVal;
+        let nextVal = firstVal + secondVal;
+        while (true) {
+            yield nextVal = firstVal + secondVal;
+            firstVal = secondVal;
+            secondVal = nextVal;
+        }
+    }
+    TypedCodeWars.fibonacciSequence = fibonacciSequence;
 })(TypedCodeWars || (TypedCodeWars = {}));
