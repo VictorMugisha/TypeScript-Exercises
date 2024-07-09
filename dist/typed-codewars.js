@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fibonacciSequence = fibonacciSequence;
+exports.nthSmallest = nthSmallest;
 var TypedCodeWars;
 (function (TypedCodeWars) {
     // # Number Format (6 kyu)
@@ -86,3 +87,17 @@ function* fibonacciSequence() {
         secondVal = nextVal;
     }
 }
+// DESCRIPTION: 6 kyu Sorted Arrays
+// Given any number of arrays each sorted in ascending order, find the nth smallest number of all their elements.
+// All the arguments except the last will be arrays, the last argument is n.
+// nthSmallest([1,5], [2], [4,8,9], 4) // returns 5 because it's the 4th smallest value
+// Be mindful of performance.
+function nthSmallest(...params) {
+    const [n, ...temp] = params.reverse();
+    const arrays = temp.reverse().flat();
+    const sorted = arrays.sort((a, b) => a - b);
+    const result = sorted[n - 1];
+    console.log(result);
+    return 0;
+}
+nthSmallest([1, 5], [2], [4, 8, 9], 4);

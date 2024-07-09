@@ -116,3 +116,26 @@ export function* fibonacciSequence(): Iterator<bigint> {
         secondVal = nextVal
     }
 }
+
+
+
+
+
+// DESCRIPTION: 6 kyu Sorted Arrays
+// Given any number of arrays each sorted in ascending order, find the nth smallest number of all their elements.
+
+// All the arguments except the last will be arrays, the last argument is n.
+
+// nthSmallest([1,5], [2], [4,8,9], 4) // returns 5 because it's the 4th smallest value
+// Be mindful of performance.
+
+export function nthSmallest(...params: Array<number | Array<number>>): number {
+    const [n, ...temp] = params.reverse()
+    const arrays: Array<number> = temp.reverse().flat()
+    const sorted = arrays.sort((a, b) => a - b)
+    const result: number = sorted[(n as number) - 1]
+    console.log(result)
+    return 0
+}
+
+nthSmallest([1,5], [2], [4,8,9], 4)
