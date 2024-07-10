@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fibonacciSequence = fibonacciSequence;
 exports.nthSmallest = nthSmallest;
 exports.number = number;
+exports.shortLongShort = shortLongShort;
+exports.generateOdds = generateOdds;
+exports.findSummands = findSummands;
 var TypedCodeWars;
 (function (TypedCodeWars) {
     // # Number Format (6 kyu)
@@ -116,5 +119,68 @@ function number(array) {
     });
     return result;
 }
-const test = number(["a", "b", "c"]);
-console.log(test);
+// const test = number(["a", "b", "c"])
+// console.log(test)
+// Short Long Short
+// Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty ( zero length ).
+// Hint for R users:
+// The length of string is not always the same as the number of characters
+// For example: (Input1, Input2) --> output
+// ("1", "22") --> "1221"
+// ("22", "1") --> "1221"
+// ShortLongShort.solution("1", "22"); // returns "1221"
+// ShortLongShort.solution("22", "1"); // returns "1221"
+function shortLongShort(a, b) {
+    let resultString = "";
+    let counts = [{ chars: a, len: a.length }, { chars: b, len: b.length }].sort((a, b) => a.len - b.len);
+    resultString = counts[0].chars + counts[1].chars + counts[0].chars;
+    return resultString;
+}
+// DESCRIPTION:
+// Can you compute a cube as a sum?
+// In this Kata, you will be given a number n (where n >= 1) and your task is to find n consecutive odd numbers whose sum is exactly the cube of n.
+// Mathematically:
+// For example:
+// n = 3, result = [7, 9, 11], because 7 + 9 + 11 = 27, the cube of 3. Note that there are only n = 3 elements in the array.
+// Write a function that when given n, will return an array of n consecutive odd numbers with the sum equal to the cube of n (n*n*n).
+function* generateOdds() {
+    let first = 1;
+    yield first;
+    while (true) {
+        yield first += 2;
+    }
+}
+function findSummands(n) {
+    const solution = [];
+    const cube = Math.pow(n, 3);
+    let oddNumbers = [];
+    const oddNumsObj = generateOdds();
+    // Initialize first n odd numbers
+    let i = 1;
+    while (i <= n) {
+        oddNumbers.push(oddNumsObj.next().value);
+        i++;
+    }
+    // Perform other logics
+    let sumOfCurrent = oddNumbers.reduce((acc, val) => acc + val);
+    while (true) {
+        if (sumOfCurrent === cube) {
+            solution.push(...oddNumbers);
+            break;
+        }
+        oddNumbers.splice(0, 1);
+        oddNumbers.push(oddNumsObj.next().value);
+        sumOfCurrent = oddNumbers.reduce((acc, val) => acc + val);
+    }
+    return solution;
+}
+const sol = findSummands(3);
+console.log(sol);
+// export function findSummands(n) {
+//     const start = n * n - n + 1; // Calculate the starting odd number
+//     const result = [];
+//     for (let i = 0; i < n; i++) {
+//         result.push(start + 2 * i); // Generate n consecutive odd numbers
+//     }
+//     return result;
+// }

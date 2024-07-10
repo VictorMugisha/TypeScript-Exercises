@@ -188,3 +188,74 @@ export function shortLongShort(a: string, b: string) {
     resultString = counts[0].chars + counts[1].chars + counts[0].chars
     return resultString
 }
+
+
+
+
+
+
+
+// DESCRIPTION:
+// Can you compute a cube as a sum?
+
+// In this Kata, you will be given a number n (where n >= 1) and your task is to find n consecutive odd numbers whose sum is exactly the cube of n.
+
+// Mathematically:
+// For example:
+
+// n = 3, result = [7, 9, 11], because 7 + 9 + 11 = 27, the cube of 3. Note that there are only n = 3 elements in the array.
+// Write a function that when given n, will return an array of n consecutive odd numbers with the sum equal to the cube of n (n*n*n).
+
+export function* generateOdds(): Generator<never | number> {
+    let first = 1
+    yield first
+    while (true) {
+        yield first += 2
+    }
+}
+
+
+export function findSummands(n: number): number[] {
+    const solution: Array<number> = []
+    const cube: number = Math.pow(n, 3)
+    let oddNumbers: Array<number> = []
+
+    const oddNumsObj: Generator<number> = generateOdds()
+
+    // Initialize first n odd numbers
+    let i = 1
+    while (i <= n) {
+        oddNumbers.push(oddNumsObj.next().value)
+        i++
+    }
+
+    // Perform other logics
+    let sumOfCurrent = oddNumbers.reduce((acc, val) => acc + val)
+    while (true) {
+        if (sumOfCurrent === cube) {
+            solution.push(...oddNumbers)
+            break
+        }
+        oddNumbers.splice(0, 1)
+        oddNumbers.push(oddNumsObj.next().value)
+        sumOfCurrent = oddNumbers.reduce((acc, val) => acc + val)
+    }
+
+    return solution;
+}
+
+const sol = findSummands(3)
+console.log(sol)
+
+
+// export function findSummands(n) {
+//     const start = n * n - n + 1; // Calculate the starting odd number
+//     const result = [];
+
+//     for (let i = 0; i < n; i++) {
+//         result.push(start + 2 * i); // Generate n consecutive odd numbers
+//     }
+
+//     return result;
+// }
+
