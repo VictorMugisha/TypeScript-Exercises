@@ -161,5 +161,30 @@ export function number(array: string[]): string[] {
     return result
 }
 
-const test = number(["a", "b", "c"])
-console.log(test)
+// const test = number(["a", "b", "c"])
+// console.log(test)
+
+
+
+
+
+
+// Short Long Short
+// Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty ( zero length ).
+
+// Hint for R users:
+
+// The length of string is not always the same as the number of characters
+// For example: (Input1, Input2) --> output
+
+// ("1", "22") --> "1221"
+// ("22", "1") --> "1221"
+// ShortLongShort.solution("1", "22"); // returns "1221"
+// ShortLongShort.solution("22", "1"); // returns "1221"
+
+export function shortLongShort(a: string, b: string) {
+    let resultString: string = ""
+    let counts: any[] = [{ chars: a, len: a.length }, { chars: b, len: b.length }].sort((a, b) => a.len - b.len)
+    resultString = counts[0].chars + counts[1].chars + counts[0].chars
+    return resultString
+}
