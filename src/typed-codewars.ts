@@ -304,3 +304,14 @@ type MaybeUser = {
 };
 
 type User = Concrete<LockedAccount>;
+
+
+// type Readonly<Type> = {
+//     readonly [Key in keyof Type]-?: Type[Key]
+// }
+
+function neverChanged(user: Readonly<MaybeUser>) {
+    console.log(user.name)
+}
+
+neverChanged({ id: "Should be some string" }) //, name: "Victor", age: 23})

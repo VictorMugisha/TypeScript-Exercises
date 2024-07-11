@@ -176,11 +176,10 @@ function findSummands(n) {
 }
 const sol = findSummands(3);
 console.log(sol);
-// export function findSummands(n) {
-//     const start = n * n - n + 1; // Calculate the starting odd number
-//     const result = [];
-//     for (let i = 0; i < n; i++) {
-//         result.push(start + 2 * i); // Generate n consecutive odd numbers
-//     }
-//     return result;
+// type Readonly<Type> = {
+//     readonly [Key in keyof Type]-?: Type[Key]
 // }
+function neverChanged(user) {
+    console.log(user.name);
+}
+neverChanged({ id: "Should be some string" }); //, name: "Victor", age: 23})
