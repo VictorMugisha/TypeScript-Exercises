@@ -248,6 +248,25 @@ const sol = findSummands(3)
 console.log(sol)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // export function findSummands(n) {
 //     const start = n * n - n + 1; // Calculate the starting odd number
 //     const result = [];
@@ -259,3 +278,29 @@ console.log(sol)
 //     return result;
 // }
 
+
+
+// Removes 'readonly' attributes from a type's properties
+type CreateMutable<Type> = {
+    -readonly [Property in keyof Type]: Type[Property];
+};
+
+type LockedAccount = {
+    readonly id: string;
+    readonly name: string;
+};
+
+type UnlockedAccount = CreateMutable<LockedAccount>;
+
+// Removes 'optional' attributes from a type's properties
+type Concrete<Type> = {
+    [Key in keyof Type]-?: Type[Key];
+};
+
+type MaybeUser = {
+    id: string;
+    name?: string;
+    age?: number;
+};
+
+type User = Concrete<LockedAccount>;
