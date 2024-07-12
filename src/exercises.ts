@@ -7,7 +7,7 @@ function log(value: string | number) {
     }
 }
 
-function isItOdd(value: number): boolean  {
+function isItOdd(value: number): boolean {
     if (typeof value === "number") {
         return true
     }
@@ -17,17 +17,17 @@ function isItOdd(value: number): boolean  {
 
 
 
- namespace Assertion {
+namespace Assertion {
     const everyType: (number | string)[] = [1, 2, 3, "everything"]
     const numbers: number[] = everyType.slice(0, 2) as number[]
     const str: string = everyType[3] as string
 
     let anyType: any = "I know this is string"
     let strFromAny: string = anyType as string
- }
+}
 
 
- 
+
 
 // type Props = {
 //     name: string
@@ -66,6 +66,8 @@ type Props = {
     weight: number
 })
 
+type Other = Readonly<Props>
+
 
 function child(args: Props) {
     if (args.gender === "male") {
@@ -82,6 +84,37 @@ function failed(value: never): never {
     throw new Error(`${value}, is not a thing`)
 }
 
-child({ gender: 'male', name: 'John', salary: 200000})
-child({ gender: 'female', name: 'John', weight: 78})
-child({ gender: 'something', name: 'John', weight: 78})
+child({ gender: 'male', name: 'John', salary: 200000 })
+child({ gender: 'female', name: 'John', weight: 78 })
+// child({ gender: 'something', name: 'John', weight: 78})
+
+
+
+// Real life example with possible api response from an api
+type APIResponse<T> =
+    | { status: 'success', data: T, timeStamp: Date }
+    | { status: 'error', message: string, timeStamp: Date }
+
+
+const successResponse: APIResponse<number> = {
+    status: 'success',
+    data: 200,
+    timeStamp: new Date()
+}
+
+const errorResponse: APIResponse<number> = {
+    status: 'error',
+    message: "There was an error",
+    timeStamp: new Date()
+}
+
+
+
+type Person222 = {
+    name: string
+    age: number
+}
+
+type Props222 = keyof Person222
+
+const person: Props222 = "age"
